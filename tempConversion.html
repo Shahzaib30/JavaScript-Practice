@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My WebPage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1em;
+    margin: 0;
+    padding: 20px;
+    
+}
+form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 0.5px solid #d6d6d6;
+    box-shadow: 5px 5px 10px rgba(63, 63, 63, 0.1);
+    border-radius: 5px;
+    text-align: center;
+}
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: rgb(226, 116, 43);
+}
+#tempInput {
+    width: auto;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.5em;
+}
+#tocalsius, #tofahrenhiet {
+    margin: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    color: rgb(226, 116, 43);
+}
+#submit {
+    padding: 10px 20px;
+    background-color: rgb(226, 116, 43);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+#submit:hover {
+    background-color: rgb(200, 100, 30);
+}
+#result {
+    margin-top: 20px;
+    font-size: 1.5em;
+    color: rgb(63, 63, 63);
+}
+</style>
+<body>
+    <form id="form"">
+        <h1>Temperature Conversion</h1>
+        <input type="number" placeholder="0" id="tempInput" required>
+        <br><br>
+        <input type="radio" id="tocalsius" name="unit">
+        <label for="tocalsius" id="tocalsius">Fahrenhiet -> Calsius</label>
+        <br>
+        <br>
+        <input type="radio" id="tofahrenhiet" name="unit">
+        <label for="tofahrenhiet" id="tofahrenhiet">Calsius -> Fahrenhiet</label>
+        <br><br>
+        <button type="submit" id="submit" onclick="conversion()">Submit</button>
+        <p id="result">Enter the Number</p>
+
+    </form>
+
+    
+    <script>
+
+    let textinput = document.getElementById("tempInput");
+    let result = document.getElementById("result");
+    let tocalsius = document.getElementById("tocalsius");
+    let tofahrenhiet = document.getElementById("tofahrenhiet");
+
+    function conversion() {
+        event.preventDefault();
+        let input = textinput.value;
+        if (tocalsius.checked) {
+            let calsius = (input - 32) * 5 / 9;
+            result.innerHTML = `${input} Fahrenhiet is equal to ${calsius.toFixed(2)} Calsius`;
+        } else if (tofahrenhiet.checked) {
+            let fahrenhiet = (input * 9 / 5) + 32;
+            result.innerHTML = `${input} Calsius is equal to ${fahrenhiet.toFixed(2)} Fahrenhiet`;
+        } else {
+            result.innerHTML = "Please select a conversion option.";
+        }
+    }
+
+    </script>
+</body>
+</html>
