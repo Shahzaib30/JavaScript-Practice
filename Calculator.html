@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My WebPage</title>
+    
+</head>
+<style>
+
+body {
+    height: 100vh;
+    width: 100%;
+    background-color: #090C11; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 2em;
+     backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); /* for Safari */
+}
+.cursor-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 61, 65, 0.6), rgba(9, 12, 17, 0.1));
+  filter: blur(120px);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: left 0.05s ease-out, top 0.05s ease-out;
+}
+
+.calculator {
+
+    border: transparent;
+    padding: 10px 15px;
+    border-radius: 20px;
+    backdrop-filter: blur(50px);
+    box-shadow: 0px 3px 15px rgba(113, 115, 119, 0.5);
+    display: flex;
+    flex-direction: column;
+    
+}
+.label {
+    font-size:2em;
+    color: #FFFFFF;
+    text-align: right;
+    margin: 15px 10px;
+
+    padding: 4px 20px;
+    border-radius: 15px;
+    
+    
+}
+
+.btn-classes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+
+}
+button{
+    border: none;
+    width: 60px;
+    height: 60px;
+    margin: 10px 20px;
+    border-radius: 50%;
+    background: transparent;
+    color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+.operator {
+    background-color: #ff8a2aec;
+    color: #ffffff;
+    font-weight: bold;
+}
+button:hover {
+    box-shadow: 1px 1px 15px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+@media only screen and (max-width: 768px) {
+  body {
+    padding-left: 50px;
+    padding-right: 50px;
+
+    width: 100%;
+  }
+}
+
+</style>
+<body>
+     <div class="cursor-glow" id="cursorGlow"></div>
+<div class="container">
+  
+    <div class="calculator">
+        <label for="display" class="label">0</label>
+        <div class="btn-classes">
+            <button onclick="appendToDisplay('AC')" class="operator">AC</button>
+            <button onclick="appendToDisplay('DEL')" class="operator">DEL</button>
+            <button onclick="appendToDisplay('%')" class="operator">%</button>
+            <button onclick="appendToDisplay('/')" class="operator">/</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('*')" class="operator">*</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')" class="operator">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('+')" class="operator">+</button>
+            <button onclick="appendToDisplay('00')">00</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="appendToDisplay('=')" class="operator">=</button>
+        </div>
+    </div>
+</div>
+    
+<script>
+    const glow = document.getElementById("cursorGlow");
+
+document.addEventListener("mousemove", (e) => {
+  glow.style.left = `${e.clientX}px`;
+  glow.style.top = `${e.clientY}px`;
+});
+
+function appendToDisplay(value) {
+    const display = document.querySelector('.label');
+    if (value === 'AC') {
+        display.textContent = '0';
+    } else if (value === 'DEL') {
+        display.textContent = display.textContent.slice(0, -1) || '0';
+    } else if (value === '=') {
+        try {
+            display.textContent = eval(display.textContent.replace(/[^0-9+\-*/.]/g, ''));
+        } catch (error) {
+            display.textContent = 'Error';
+        }
+    } else {
+        if (display.textContent === '0' || display.textContent === 'Error') {
+            display.textContent = value;
+        } else {
+            display.textContent += value;
+        }
+    }
+}
+
+
+</script>
+</body>
+</html>
